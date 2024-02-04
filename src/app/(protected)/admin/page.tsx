@@ -1,3 +1,5 @@
+'use client';
+
 import { admin } from '@/actions/admin';
 import { RoleGate } from '@/components/auth/role-gate';
 import { FormSuccess } from '@/components/form-success';
@@ -8,11 +10,13 @@ import { toast } from 'sonner';
 
 const AdminPage = () => {
   const onServerActionClick = () => {
-    admin().then((response) => {
-      if (response.success) {
-        toast.success('Allowed API Route!');
-      } else {
-        toast.error('Forbidden API Route!');
+    admin().then((data) => {
+      if (data.error) {
+        toast.error(data.error);
+      }
+
+      if (data.success) {
+        toast.success(data.success);
       }
     });
   };
